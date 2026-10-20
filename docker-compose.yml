@@ -1,0 +1,8 @@
+services:
+  tawasul:
+    build: .
+    image: sea/tawasul-portal:latest
+    container_name: tawasul-portal
+    ports:
+      - "8080:80"
+    restart: unless-stopped
