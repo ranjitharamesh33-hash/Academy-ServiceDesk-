@@ -4,22 +4,24 @@ The end-user service portal for **Sharjah Education Academy (SEA)**. Staff, facu
 
 ## What it does
 
-The home page has four service areas:
+The home page has five service areas:
 
 | Area | What people do there |
 | --- | --- |
 | **Request Service** | Pick a service (IT, Facilities, Student Services, Translation, Academic Team) and fill in the offering's form. |
 | **Report Incident** | Report something broken. Impact and urgency set the priority (P1 to P4); a safety tick makes it P1. |
 | **My Devices** | See equipment assigned to you, report a problem with a device, and confirm devices during a device check. |
+| **Knowledge Base** | Search and read step-by-step help articles by service, rate whether they helped, and go straight to the right form if not. |
 | **Track My Requests** | Follow status and expected date, reply, cancel, confirm a fix, reopen within 5 days and rate the service. |
 
 Also included:
 
-- **Claude assistant** on the home page: people describe their need and Claude suggests the right offering and pre-fills the form (falls back to keyword matching when Claude is not available).
+- **Claude assistant** on the home page: people describe their need and Claude suggests the right offering and pre-fills the form (falls back to keyword matching when Claude is not available). Matching help articles are suggested alongside, in home search and next to each request form.
 - **Approvals** for requests that need a manager's decision.
 - **Arabic and English** with right-to-left layout.
 - **Admin** (owner and Editors only):
   - *Services and offerings*: add services and offerings, build each form (8 field types, bilingual labels, required fields, choice lists), set expected time and approval.
+  - *Knowledge Base*: write, edit, publish or hide bilingual articles, link each to a service and a related offering, and see how helpful each one is. Ships with 8 starter articles.
   - *Devices*: register equipment and assign it to people.
   - *Device check*: run an inventory reconciliation, follow answers live, resolve follow-ups and download results as CSV.
   - *Approvers*, *Branding* (brand colour, name, short mark), *Announcement* banner and *Example data*.
@@ -46,12 +48,12 @@ On Windows you can also double-click `scripts\start-tawasul.bat` and `scripts\st
 
 | Capability | Used for |
 | --- | --- |
-| `db` | Shared storage: `tickets`, `devices`, `confirmations`, `services`, `offerings`, `members`, `settings/main`, `settings/recon` |
+| `db` | Shared storage: `tickets`, `devices`, `confirmations`, `services`, `offerings`, `articles`, `kbvotes`, `members`, `settings/main`, `settings/recon` |
 | `user` | Who is signed in, names and avatars, people search |
 | `sample` | The Claude assistant that routes requests |
 | `downloads` | CSV export of device check results |
 
-Access rules in the live artifact: tickets and confirmations are writable by Contributors; devices, services, offerings, approvers and settings only by Editors and the owner.
+Access rules in the live artifact: tickets, confirmations and article votes are writable by Contributors; devices, services, offerings, articles, approvers and settings only by Editors and the owner.
 
 ## Self-hosting for production
 
@@ -76,4 +78,4 @@ To run it on SEA infrastructure, replace the claude.ai runtime calls (the `stora
 ## Customising
 
 - **Brand colour**: Admin › Branding, or change `--brand` at the top of the `<style>` block.
-- **Default catalogue**: the `AREAS0` and `CATALOG0` lists in the script. Changes made in Admin are stored and override these defaults.
+- **Default catalogue and articles**: the `AREAS0`, `CATALOG0` and `ARTICLES0` lists in the script. Changes made in Admin are stored and override these defaults.

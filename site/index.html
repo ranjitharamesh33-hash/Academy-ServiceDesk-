@@ -143,7 +143,7 @@ main{padding-block:24px 64px;display:flex;flex-direction:column;gap:22px}
 .tile b{font:600 16px/1.3 var(--f-display)}
 .tile p{color:var(--muted);font-size:13.5px;line-height:1.5}
 .tile small{color:var(--muted);font-size:12.5px;margin-top:auto}
-.acts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.acts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
 .act{display:flex;flex-direction:column;gap:12px;padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:16px;text-decoration:none;color:inherit;min-width:0}
 .act:hover{border-color:var(--brand);background:var(--brand-soft)}
 .act .ic{width:48px;height:48px;border-radius:12px;background:var(--brand);color:var(--on-brand)}
@@ -151,6 +151,16 @@ main{padding-block:24px 64px;display:flex;flex-direction:column;gap:22px}
 .act b{font:600 18px/1.3 var(--f-display)}
 .act p{color:var(--muted);font-size:14px;line-height:1.5}
 .act small{margin-top:auto;font-weight:600;color:var(--brand-ink);font-size:13px}
+.article{display:flex;flex-direction:column;gap:12px;font-size:15.5px;line-height:1.75;max-width:70ch}
+.article h3{font-size:17px;margin-top:8px}
+.article ol{list-style:none;counter-reset:st;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.article ol li{counter-increment:st;display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:start}
+.article ol li::before{content:counter(st);width:28px;height:28px;border-radius:50%;background:var(--brand);color:var(--on-brand);display:grid;place-items:center;font:600 13px var(--f-display);margin-top:1px}
+.article ul{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+.artwrap{gap:20px}
+.artlink{display:flex;gap:10px;align-items:center;padding:9px 10px;border-radius:9px;text-decoration:none;color:var(--fg);font-size:14.5px}
+.artlink:hover{background:var(--brand-soft);color:var(--brand-ink)}
+.artlink svg{flex:none;color:var(--brand-ink)}
 .prog{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
 .prog i{display:block;height:100%;background:var(--brand);border-radius:4px}
 .recon{border-color:var(--brand-line);background:var(--brand-soft)}
@@ -371,7 +381,11 @@ const FLOW={INC:['New','In Progress','On Hold','Resolved','Closed','Cancelled'],
 /* ---------- words ---------- */
 const T={
 en:{loading:'Loading Tawasul…',org:'Sharjah Education Academy',portalSub:'Service portal',home:'Home',mine:'Track My Requests',approvals:'Approvals',workspace:'Service desk',admin:'Admin',langBtn:'العربية',
- allSvc:'All services',kSearch:'Search in this area',incSafety:'If anyone is in danger, contact campus security first. Then report it here and tick the safety option.',prioChip:'Priority set by impact',startReq:'Start request',startRep:'Report it',noKMatch:'Nothing matches that search.',optN:'options',
+ a_kb:'Knowledge Base',a_kbD:'Step-by-step help articles. Find the answer yourself, any time.',n_articles:'articles',kbSub:'Help articles from the academy service teams. Search or pick a service.',kbSearch:'Search articles',readArt:'Read article',
+ helpfulQ:'Was this article helpful?',yes:'Yes',no:'No',helpThanks:'Thanks for your feedback.',stillNeed:'Still need help?',stillNeedSub:'Raise it with the team and we will take it from here.',openForm:'Open the form',helpfulPct:'found this helpful',updatedL:'Updated',relatedArts:'Related articles',beforeSubmit:'Before you submit, these may help',articlesL:'Help articles',mayHelp:'These articles may help',noArts:'No articles here yet.',
+ adm_kb:'Knowledge Base',kbAdminSub:'Write help articles people can use without raising a request. Articles appear under their service in the Knowledge Base.',addArticle:'Add article',artTitle:'Title (English)',artTitleAr:'Title (Arabic)',artSum:'Short summary (English)',artSumAr:'Short summary (Arabic)',artBody:'Article (English)',artBodyAr:'Article (Arabic)',
+ artBodyHint:'Plain text. Start a line with "1." for a numbered step, "-" for a bullet, or "##" for a heading. Leave a blank line between paragraphs.',artOffering:'Related offering',artOfferingHint:'Shown as the next step when the article did not solve the problem.',none:'None',published:'Published (visible to everyone)',draftL:'Draft',votesL:'votes',artReq:'Add the title in English and Arabic, and the article text.',
+  allSvc:'All services',kSearch:'Search in this area',incSafety:'If anyone is in danger, contact campus security first. Then report it here and tick the safety option.',prioChip:'Priority set by impact',startReq:'Start request',startRep:'Report it',noKMatch:'Nothing matches that search.',optN:'options',
   rc_title:'Device check',rc_userSub:'Please confirm each device below is still with you. Due by',rc_confirmed:'confirmed',rc_q:'Is this device with you?',rc_b_have:'I have it',rc_b_missing:'Not with me',rc_b_wrong:'Details are wrong',
  rc_a_have:'Confirmed',rc_a_missing:'Not with me',rc_a_wrong:'Details wrong',rc_a_unlisted:'Not listed',rc_a_pending:'Not confirmed yet',
  rc_missPh:'Where is it now? For example: returned to IT, passed to a colleague, lost',rc_wrongPh:'What is wrong? For example: the serial number, model or location',rc_save:'Save answer',rc_change:'Change',rc_noteReq:'Add a short note so IT can follow up.',rc_allDone:'Thank you. All your devices are confirmed.',
@@ -425,7 +439,11 @@ en:{loading:'Loading Tawasul…',org:'Sharjah Education Academy',portalSub:'Serv
  safety:'Safety risk',pick:'Choose…',hours:'h',days:'days',hrs:'hours',
  noSample:'Claude is not available in this view, so we matched your words to the closest services instead.'},
 ar:{loading:'جارٍ تحميل تواصل…',org:'أكاديمية الشارقة للتعليم',portalSub:'بوابة الخدمات',home:'الرئيسية',mine:'تتبع طلباتي',approvals:'الموافقات',workspace:'مكتب الخدمة',admin:'الإدارة',langBtn:'English',
- allSvc:'جميع الخدمات',kSearch:'ابحث في هذا المجال',incSafety:'إذا كان أي شخص في خطر، تواصل مع أمن الحرم أولًا، ثم أبلغ هنا واختر خيار السلامة.',prioChip:'الأولوية حسب التأثير',startReq:'ابدأ الطلب',startRep:'أبلغ الآن',noKMatch:'لا توجد نتائج مطابقة.',optN:'خيارات',
+ a_kb:'قاعدة المعرفة',a_kbD:'مقالات مساعدة خطوة بخطوة. اعثر على الإجابة بنفسك في أي وقت.',n_articles:'مقالات',kbSub:'مقالات مساعدة من فرق الخدمة في الأكاديمية. ابحث أو اختر خدمة.',kbSearch:'ابحث في المقالات',readArt:'اقرأ المقال',
+ helpfulQ:'هل كان هذا المقال مفيدًا؟',yes:'نعم',no:'لا',helpThanks:'شكرًا على ملاحظتك.',stillNeed:'ما زلت بحاجة إلى مساعدة؟',stillNeedSub:'ارفع الطلب إلى الفريق وسنتولى الأمر.',openForm:'افتح النموذج',helpfulPct:'وجدوه مفيدًا',updatedL:'آخر تحديث',relatedArts:'مقالات ذات صلة',beforeSubmit:'قبل الإرسال، قد تفيدك هذه المقالات',articlesL:'مقالات المساعدة',mayHelp:'قد تفيدك هذه المقالات',noArts:'لا توجد مقالات هنا بعد.',
+ adm_kb:'قاعدة المعرفة',kbAdminSub:'اكتب مقالات مساعدة يستخدمها الجميع دون تقديم طلب. تظهر المقالات تحت خدمتها في قاعدة المعرفة.',addArticle:'إضافة مقال',artTitle:'العنوان (بالإنجليزية)',artTitleAr:'العنوان (بالعربية)',artSum:'ملخص قصير (بالإنجليزية)',artSumAr:'ملخص قصير (بالعربية)',artBody:'المقال (بالإنجليزية)',artBodyAr:'المقال (بالعربية)',
+ artBodyHint:'نص عادي. ابدأ السطر بـ "1." لخطوة مرقمة، أو "-" لنقطة، أو "##" لعنوان. اترك سطرًا فارغًا بين الفقرات.',artOffering:'العنصر المرتبط',artOfferingHint:'يظهر كخطوة تالية إذا لم يحل المقال المشكلة.',none:'لا يوجد',published:'منشور (مرئي للجميع)',draftL:'مسودة',votesL:'أصوات',artReq:'أضف العنوان بالإنجليزية والعربية ونص المقال.',
+  allSvc:'جميع الخدمات',kSearch:'ابحث في هذا المجال',incSafety:'إذا كان أي شخص في خطر، تواصل مع أمن الحرم أولًا، ثم أبلغ هنا واختر خيار السلامة.',prioChip:'الأولوية حسب التأثير',startReq:'ابدأ الطلب',startRep:'أبلغ الآن',noKMatch:'لا توجد نتائج مطابقة.',optN:'خيارات',
   rc_title:'التحقق من الأجهزة',rc_userSub:'يرجى تأكيد أن كل جهاز أدناه ما زال بحوزتك. الموعد النهائي',rc_confirmed:'مؤكدة',rc_q:'هل هذا الجهاز بحوزتك؟',rc_b_have:'نعم، بحوزتي',rc_b_missing:'ليس بحوزتي',rc_b_wrong:'البيانات غير صحيحة',
  rc_a_have:'تم التأكيد',rc_a_missing:'ليس بحوزته',rc_a_wrong:'بيانات غير صحيحة',rc_a_unlisted:'غير مدرج',rc_a_pending:'لم يُؤكَّد بعد',
  rc_missPh:'أين هو الآن؟ مثلًا: أُعيد إلى تقنية المعلومات، أو سُلّم لزميل، أو فُقد',rc_wrongPh:'ما الخطأ؟ مثلًا: الرقم التسلسلي أو الطراز أو الموقع',rc_save:'حفظ الإجابة',rc_change:'تغيير',rc_noteReq:'أضف ملاحظة قصيرة لتتمكن تقنية المعلومات من المتابعة.',rc_allDone:'شكرًا لك. تم تأكيد جميع أجهزتك.',
@@ -558,16 +576,86 @@ function rebuildCatalog(){const ord=(x,i)=>x.order!=null&&x.order!==''?+x.order:
   ALLAREAS=Object.values(am).map((a,i)=>({...a,order:ord(a,i)})).sort((a,b)=>a.order-b.order);AREAS=ALLAREAS.filter(a=>!a.hidden);
   const cm={};CATALOG0.forEach((c,i)=>cm[c.id]={...c,order:i*10,builtin:1});Object.values(S.off).forEach(d=>{const b=cm[d.id];cm[d.id]={...(b||{}),...d,edited:!!b&&!d.hidden}});
   const all=Object.values(cm).map((c,i)=>({...c,order:ord(c,i)})).sort((a,b)=>a.order-b.order);ITEM=Object.fromEntries(all.map(c=>[c.id,c]));
-  const vis=new Set(AREAS.map(a=>a.id));CATALOG=all.filter(c=>!c.hidden&&c.en&&vis.has(c.area))}
+  const vis=new Set(AREAS.map(a=>a.id));CATALOG=all.filter(c=>!c.hidden&&c.en&&vis.has(c.area));if(typeof rebuildKB==='function')rebuildKB()}
 const DEV_TYPES=[o('Laptop','حاسوب محمول'),o('Desktop','حاسوب مكتبي'),o('Monitor','شاشة'),o('Tablet','جهاز لوحي'),o('Phone','هاتف'),o('Printer','طابعة'),o('Interactive display','شاشة تفاعلية'),o('Projector','جهاز عرض'),o('Other','أخرى')];
 const DEV_ST=[['In use','d_inuse','s-ok'],['In repair','d_repair','s-warn'],['Returned','d_returned','s-idle']];
 const IMPACT=[o('Just me','أنا فقط'),o('My team or class','فريقي أو صفي'),o('Many people or the whole academy','عدد كبير أو الأكاديمية كلها')];
 const URGENCY=[o('It can wait','يمكن الانتظار'),o('It is slowing my work today','يؤثر على عملي اليوم'),o('I cannot work at all','لا أستطيع العمل إطلاقًا')];
 const POPULAR=['it-problem','fac-fault','fac-room','stu-letter','it-access','trn-request'];
 
+
+const A=(id,area,offering,en,ar,sen,sar,ben,bar,kw)=>({id,area,offering,en,ar,sen,sar,ben,bar,kw,published:true});
+const ARTICLES0=[
+ A('kb-password','it','it-access','Reset your password','إعادة تعيين كلمة المرور','Change a forgotten or expired academy password yourself.','غيّر كلمة مرور الأكاديمية المنسية أو المنتهية بنفسك.',
+  '1. Go to the academy sign-in page and choose Forgot my password.\n2. Verify it is you with your registered phone or authenticator app.\n3. Choose a new password that follows the rules shown on screen.\n4. Sign in again on your laptop, phone and email app with the new password.\n\nIf you cannot verify your identity, raise an Account or system access request and IT will reset it for you.',
+  '1. افتح صفحة تسجيل الدخول للأكاديمية واختر "نسيت كلمة المرور".\n2. أثبت هويتك برقم هاتفك المسجل أو تطبيق المصادقة.\n3. اختر كلمة مرور جديدة تتبع الشروط الظاهرة على الشاشة.\n4. سجّل الدخول مجددًا على حاسوبك وهاتفك وتطبيق البريد بكلمة المرور الجديدة.\n\nإذا لم تتمكن من إثبات هويتك، قدّم طلب صلاحية حساب أو نظام وسيعيد فريق تقنية المعلومات تعيينها لك.','password reset forgot expired locked account login sign in'),
+ A('kb-mfa','it','it-access','Set up the authenticator app','إعداد تطبيق المصادقة','Add multi-factor sign-in to your academy account with Microsoft Authenticator.','أضف التحقق متعدد العوامل إلى حسابك باستخدام Microsoft Authenticator.',
+  '1. Install Microsoft Authenticator on your phone from the App Store or Google Play.\n2. On your computer, sign in to your academy account. When asked for more information, choose Next.\n3. In the app, tap Add account, then Work or school account, and scan the QR code on screen.\n4. Approve the test notification on your phone.\n\n## New phone?\nRaise an Account or system access request before you reset your old phone, so IT can move your sign-in.',
+  '1. ثبّت تطبيق Microsoft Authenticator على هاتفك من App Store أو Google Play.\n2. على حاسوبك، سجّل الدخول إلى حساب الأكاديمية. عند طلب معلومات إضافية اختر "التالي".\n3. في التطبيق، اضغط "إضافة حساب" ثم "حساب عمل أو مدرسة" وامسح رمز QR الظاهر على الشاشة.\n4. وافق على الإشعار التجريبي على هاتفك.\n\n## هاتف جديد؟\nقدّم طلب صلاحية حساب أو نظام قبل إعادة ضبط هاتفك القديم ليقوم الفريق بنقل تسجيل الدخول.','mfa authenticator two factor 2fa otp code phone new phone'),
+ A('kb-wifi','it','it-problem','Connect to the academy Wi-Fi','الاتصال بشبكة الأكاديمية','Get your laptop or phone online on campus.','اتصل بالإنترنت من حاسوبك أو هاتفك داخل الحرم.',
+  '1. Open the Wi-Fi settings on your device.\n2. Choose the academy staff network shown on the IT notice in your building.\n3. Sign in with your academy email and password.\n4. If asked to trust a certificate, choose Connect or Trust.\n\n- Visitors and event guests need Guest Wi-Fi. Request it under IT Services.\n- Still dropping? Report an IT problem with the room number.',
+  '1. افتح إعدادات الواي فاي على جهازك.\n2. اختر شبكة الموظفين الظاهرة في إشعار تقنية المعلومات في مبناك.\n3. سجّل الدخول ببريد الأكاديمية وكلمة المرور.\n4. إذا طُلب منك الوثوق بشهادة، اختر "اتصال" أو "ثقة".\n\n- يحتاج الزوار وضيوف الفعاليات إلى شبكة الضيوف. اطلبها من خدمات تقنية المعلومات.\n- ما زال الاتصال ينقطع؟ أبلغ عن مشكلة تقنية مع رقم القاعة.','wifi wi-fi wireless internet network connect slow dropping'),
+ A('kb-print','it','it-printer','Print from your laptop','الطباعة من حاسوبك','Add an academy printer and print your documents.','أضف طابعة الأكاديمية واطبع مستنداتك.',
+  '1. Connect to the academy network.\n2. Open Settings, then Printers and scanners, and choose Add device.\n3. Pick the printer by the name or tag on its sticker.\n4. Print as usual. If the printer asks you to release the job, sign in at the printer.\n\nOut of toner or paper jammed? Use Printer toner or repair.',
+  '1. اتصل بشبكة الأكاديمية.\n2. افتح الإعدادات ثم "الطابعات والماسحات" واختر "إضافة جهاز".\n3. اختر الطابعة بالاسم أو الرقم المكتوب على ملصقها.\n4. اطبع كالمعتاد. إذا طلبت الطابعة تحرير المهمة، سجّل الدخول عند الطابعة.\n\nنفد الحبر أو انحشر الورق؟ استخدم طلب حبر الطابعة أو إصلاحها.','print printer printing toner add printer'),
+ A('kb-display','it','it-problem','Present on a classroom display','العرض على شاشة القاعة','Show your laptop on the display or projector in a training room.','اعرض شاشة حاسوبك على شاشة القاعة أو جهاز العرض.',
+  '1. Connect the HDMI or USB-C cable at the lectern to your laptop.\n2. Turn on the display and choose the matching input.\n3. On Windows, press Windows + P and choose Duplicate.\n\n## No picture?\n- Check the cable is fully in on both ends.\n- Try the other input on the display.\n- Restart the display.\n\nStill nothing before your session? Report an IT problem and choose Classroom AV.',
+  '1. صِل كابل HDMI أو USB-C الموجود على المنصة بحاسوبك.\n2. شغّل الشاشة واختر المدخل المناسب.\n3. على ويندوز، اضغط Windows + P واختر "تكرار".\n\n## لا تظهر صورة؟\n- تأكد من تثبيت الكابل جيدًا من الطرفين.\n- جرّب المدخل الآخر في الشاشة.\n- أعد تشغيل الشاشة.\n\nما زالت المشكلة قبل جلستك؟ أبلغ عن مشكلة تقنية واختر أنظمة العرض في القاعات.','projector display screen hdmi present classroom av no signal'),
+ A('kb-room','fac','fac-room','How room and lab bookings work','كيف يعمل حجز القاعات والمختبرات','Book training rooms, labs and the Auditorium, and follow your booking.','احجز قاعات التدريب والمختبرات والقاعة الكبرى وتابع حجزك.',
+  '1. Go to Request Service, then Facilities, then Book a room or lab.\n2. Choose the space, date, start and end time, and the number of people.\n3. Add any layout or setup notes.\n4. Follow the booking in Track My Requests. It shows Approved when the room is confirmed.\n\n- Book as early as you can, especially for the Auditorium.\n- Need microphones or a laptop set up? Also raise Classroom AV setup under IT Services.',
+  '1. افتح طلب خدمة ثم المرافق ثم "حجز قاعة أو مختبر".\n2. اختر المكان والتاريخ ووقت البدء والانتهاء وعدد الأشخاص.\n3. أضف أي ملاحظات للتجهيز.\n4. تابع الحجز في تتبع طلباتي. تظهر الحالة "تمت الموافقة" عند تأكيد القاعة.\n\n- احجز مبكرًا قدر الإمكان، خاصة القاعة الكبرى.\n- تحتاج ميكروفونات أو حاسوبًا مجهزًا؟ قدّم أيضًا طلب تجهيز أنظمة العرض من خدمات تقنية المعلومات.','book booking room lab auditorium meeting reserve'),
+ A('kb-letters','stu','stu-letter','Getting letters and certificates','الحصول على الرسائل والشهادات','What you can request from Student Services and how you receive it.','ما يمكنك طلبه من خدمات الطلبة وكيف تستلمه.',
+  'You can request enrolment letters, to-whom-it-may-concern letters and completion certificates.\n\n1. Go to Request Service, then Student Services, then Letter or certificate.\n2. Choose the letter type, who it is addressed to, and the language.\n3. Choose a digital copy or a printed copy to collect.\n4. When it is ready, Track My Requests shows Completed. Digital copies are attached there.',
+  'يمكنك طلب رسائل إثبات القيد ورسائل لمن يهمه الأمر وشهادات الإتمام.\n\n1. افتح طلب خدمة ثم خدمات الطلبة ثم "رسالة أو شهادة".\n2. اختر نوع الرسالة والجهة الموجهة إليها واللغة.\n3. اختر نسخة رقمية أو نسخة مطبوعة تستلمها.\n4. عند الجاهزية تظهر الحالة "مكتمل" في تتبع طلباتي، وتُرفق النسخ الرقمية هناك.','letter certificate enrolment to whom it may concern student'),
+ A('kb-translation','trn','trn-request','Preparing a document for translation','تجهيز وثيقة للترجمة','Send documents in a form the Translation team can work with quickly.','أرسل الوثائق بصيغة تسهّل على فريق الترجمة العمل عليها بسرعة.',
+  '1. Share an editable file (Word or PowerPoint) where you can. Scans take longer.\n2. Upload it to OneDrive or SharePoint and give the team access to the link.\n3. Note any names, titles or terms that must stay exactly as they are.\n4. Give a realistic Required by date. Long documents need more time.\n\nThen raise a Translation request and paste the link.',
+  '1. شارك ملفًا قابلًا للتعديل (Word أو PowerPoint) قدر الإمكان، فالنسخ الممسوحة تستغرق وقتًا أطول.\n2. ارفعه إلى OneDrive أو SharePoint وامنح الفريق صلاحية الوصول إلى الرابط.\n3. اذكر أي أسماء أو مسميات أو مصطلحات يجب أن تبقى كما هي.\n4. حدد موعدًا واقعيًا للتسليم، فالوثائق الطويلة تحتاج وقتًا أطول.\n\nثم قدّم طلب ترجمة والصق الرابط.','translation translate document arabic english prepare')];
+let KB=ARTICLES0,KBALL=ARTICLES0;
+function rebuildKB(){const am={};ARTICLES0.forEach((a,i)=>am[a.id]={...a,order:i*10,builtin:1});Object.values(S.art).forEach(d=>{const b=am[d.id];am[d.id]={...(b||{}),...d,edited:!!b&&!d.hidden}});
+  KBALL=Object.values(am).map((a,i)=>({...a,order:a.order!=null&&a.order!==''?+a.order:i*10})).sort((a,b)=>a.order-b.order);
+  const vis=new Set(AREAS.map(a=>a.id));KB=KBALL.filter(a=>!a.hidden&&a.published!==false&&a.en&&vis.has(a.area))}
+const artText=a=>[a.en,a.ar,a.sen,a.sar,a.kw,a.ben,a.bar].join(' ').toLowerCase();
+function kbMatch(text,n=3){const w=String(text||'').toLowerCase().split(/[^a-z؀-ۿ0-9]+/).filter(x=>x.length>2);if(!w.length)return [];
+  return KB.map(a=>{const h=[a.en,a.ar,a.sen,a.sar,a.kw].join(' ').toLowerCase();return [a,w.reduce((s,x)=>s+(h.includes(x)?1:0),0)]}).filter(p=>p[1]>0).sort((x,y)=>y[1]-x[1]).slice(0,n).map(p=>p[0])}
+function votesFor(id){const v=Object.values(S.votes).filter(x=>x.article===id);return {n:v.length,yes:v.filter(x=>x.helpful).length}}
+function mdLite(src){const lines=String(src||'').split('\n');let h='',list=null;const close=()=>{if(list){h+=`</${list}>`;list=null}};
+  for(const raw of lines){const l=raw.trim();let m;if(!l){close();continue}
+   if((m=l.match(/^##\s+(.*)/))){close();h+=`<h3>${esc(m[1])}</h3>`}
+   else if((m=l.match(/^\d+[.)]\s+(.*)/))){if(list!=='ol'){close();h+='<ol>';list='ol'}h+=`<li>${esc(m[1])}</li>`}
+   else if((m=l.match(/^[-*•]\s+(.*)/))){if(list!=='ul'){close();h+='<ul>';list='ul'}h+=`<li>${esc(m[1])}</li>`}
+   else{close();h+=`<p>${esc(l)}</p>`}}
+  close();return h}
+const artBody=a=>S.lang==='ar'?(a.bar||a.ben):(a.ben||a.bar);
+const artSum=a=>S.lang==='ar'?(a.sar||a.sen):(a.sen||a.sar);
+function artCard(a){const v=votesFor(a.id),ar=area(a.area);
+  return `<a class="ocard" href="#article-${esc(a.id)}"><span class="otop"><span class="oic">${icon('lib',20)}</span><span class="ob"><b>${esc(L(a))}</b><span class="od">${esc(artSum(a))}</span></span></span>
+   <span class="ometa"><span class="mchip">${icon(areaIcon(ar),13)}${esc(L(ar))}</span>${v.n?`<span class="mchip">${icon('check',13)}${Math.round(v.yes/v.n*100)}% ${t('helpfulPct')}</span>`:''}</span>
+   <span class="ogo"><span>${t('readArt')}</span>${icon('arrow',18)}</span></a>`}
+const artLink=a=>`<a class="artlink" href="#article-${esc(a.id)}">${icon('lib',16)}<span>${esc(L(a))}</span></a>`;
+function vKB(){const route='kb',as=AREAS.filter(a=>KB.some(k=>k.area===a.id)),sel=as.some(a=>a.id===S.arg)?S.arg:'',q=(S.filters.kq||'').trim().toLowerCase();
+  const items=a=>KB.filter(k=>k.area===a.id&&(!q||artText(k).includes(q)));
+  const shown=as.filter(a=>!sel||a.id===sel).map(a=>[a,items(a)]).filter(([,l])=>l.length),total=as.reduce((n,a)=>n+items(a).length,0);
+  const side=`<nav class="kside" aria-label="${esc(t('pickSvc'))}"><a href="#kb" class="${sel?'':'on'}"><span class="kico">${icon('gen',17)}</span><span>${t('allSvc')}</span><span class="n">${total}</span></a>
+   ${as.map(a=>`<a href="#kb-${esc(a.id)}" class="${sel===a.id?'on':''}"><span class="kico">${icon(areaIcon(a),17)}</span><span>${esc(L(a))}</span><span class="n">${items(a).length}</span></a>`).join('')}</nav>`;
+  return banners()+`<div class="crumb"><a href="#home">${t('home')}</a><span>/</span>${sel?`<a href="#kb">${t('a_kb')}</a><span>/</span><span>${esc(L(area(sel)))}</span>`:`<span>${t('a_kb')}</span>`}</div>
+  <section class="khead"><div class="kt"><span class="kic">${icon('lib',30)}</span><div><h1>${t('a_kb')}</h1><p>${t('kbSub')}</p></div></div><div class="ks"><input type="search" id="kindQ" placeholder="${esc(t('kbSearch'))}" value="${esc(S.filters.kq||'')}" aria-label="${esc(t('kbSearch'))}"></div></section>
+  <div class="kgrid">${side}<div class="kmain">${shown.length?shown.map(([a,l])=>`<section class="ksec"><div class="ksec-h"><span class="ic">${icon(areaIcon(a),22)}</span><div><h2>${esc(L(a))}</h2><p>${esc(D_(a))}</p></div></div><div class="ocards">${l.map(artCard).join('')}</div></section>`).join(''):`<section class="panel"><div class="empty">${q?t('noKMatch'):t('noArts')}</div></section>`}</div></div>`}
+function vArticle(id){const a=KBALL.find(x=>x.id===id&&!x.hidden&&(x.published!==false||isAdmin()));if(!a)return vKB();const ar=area(a.area),v=votesFor(a.id),mine=S.votes[a.id+'__'+S.uid];
+  const off=a.offering&&ITEM[a.offering]&&CATALOG.includes(ITEM[a.offering])?ITEM[a.offering]:null;
+  const rel=KB.filter(x=>x.area===a.area&&x.id!==a.id).slice(0,4);
+  return banners()+`<div class="crumb"><a href="#home">${t('home')}</a><span>/</span><a href="#kb">${t('a_kb')}</a><span>/</span><a href="#kb-${esc(ar.id)}">${esc(L(ar))}</a></div>
+  <div class="side"><article class="panel"><div class="panel-b artwrap">${a.published===false?`<span class="tag" style="align-self:flex-start">${t('draftL')}</span>`:''}
+    <div class="svchead"><span class="ic">${icon('lib',22)}</span><div><h1 style="font-size:26px">${esc(L(a))}</h1><p class="muted">${esc(artSum(a))}</p></div></div>
+    <div class="meta" style="display:flex;gap:8px;flex-wrap:wrap"><span class="mchip">${icon(areaIcon(ar),13)}${esc(L(ar))}</span>${a.updatedAt?`<span class="mchip">${icon('clock',13)}${t('updatedL')} ${fd(a.updatedAt)}</span>`:''}${v.n?`<span class="mchip">${icon('check',13)}${Math.round(v.yes/v.n*100)}% ${t('helpfulPct')}</span>`:''}</div>
+    <div class="article">${mdLite(artBody(a))}</div>
+    <div class="box call"><h3>${t('helpfulQ')}</h3>${mine?`<p>${t('helpThanks')}</p>`:`<div class="actions"><button class="btn" data-a="vote" data-id="${esc(a.id)}" data-v="1">${t('yes')}</button><button class="btn" data-a="vote" data-id="${esc(a.id)}" data-v="0">${t('no')}</button></div>`}</div>
+    ${mine&&!mine.helpful||!off?'':''}${(mine&&!mine.helpful)||off?`<div class="box"><h3>${t('stillNeed')}</h3><p class="muted">${t('stillNeedSub')}</p><div class="actions">${off?`<a class="btn primary" href="#new-${esc(off.id)}">${esc(L(off))}</a>`:''}<a class="btn" href="#incident-${esc(ar.id)}">${t('a_incident')}</a><a class="btn" href="#request-${esc(ar.id)}">${t('a_request')}</a></div></div>`:''}
+   </div></article>
+   <aside class="panel"><div class="panel-h"><h2>${t('relatedArts')}</h2></div><div class="panel-b" style="gap:4px">${rel.length?rel.map(artLink).join(''):`<p class="muted">${t('noArts')}</p>`}</div></aside></div>`}
+
 /* ---------- state ---------- */
 const S={db:null,user:null,sample:null,demo:false,ready:false,uid:null,meName:'',meAvatar:'',owner:false,editor:false,writeOk:true,
- tickets:{},members:{},svc:{},off:{},devices:{},devEdit:null,recon:null,conf:{},confEdit:null,unlisted:null,downloads:null,confirmClose:0,editing:null,edErr:'',confirmDel:0,settings:{brand:{...BRAND_DEFAULT},ann:null},profiles:{},
+ tickets:{},members:{},svc:{},off:{},devices:{},devEdit:null,art:{},votes:{},kbEdit:null,recon:null,conf:{},confEdit:null,unlisted:null,downloads:null,confirmClose:0,editing:null,edErr:'',confirmDel:0,settings:{brand:{...BRAND_DEFAULT},ann:null},profiles:{},
  lang:'en',route:'home',arg:'',filters:{mine:'open',ws:'open',area:'all',q:'',home:''},drawer:null,drawerMode:null,assist:null,lastTicket:null,formErr:{},pickPerson:null,hits:[]};
 try{S.lang=localStorage.getItem('tawasul-lang')||'en'}catch(e){}
 let SEEN={}; try{SEEN=JSON.parse(localStorage.getItem('tawasul-seen')||'{}')}catch(e){}
@@ -625,7 +713,7 @@ async function saveTicket(tk,msg){tk.updated=now();
   try{await S.db.doc('tickets/'+tk.id).set(clone(tk));if(msg)toast(msg);return true}catch(e){fail(e);return false}}
 async function put(path,data){if(S.demo){demoPut(path,data);return true}try{await S.db.doc(path).set(data);return true}catch(e){fail(e);return false}}
 async function del(path){if(S.demo){demoPut(path,null);return true}try{await S.db.doc(path).delete();return true}catch(e){fail(e);return false}}
-function demoPut(path,data){const [c,id]=path.split('/');if(c==='members'){if(data)S.members[id]=data;else delete S.members[id]}if(c==='tickets'){if(data)S.tickets[id]=data;else delete S.tickets[id]}if(c==='settings'&&id==='main')applySettings(data);if(c==='devices'){if(data)S.devices[id]=data;else delete S.devices[id]}if(c==='confirmations'){if(data)S.conf[id]=data;else delete S.conf[id]}if(c==='settings'&&id==='recon')S.recon=data;if(c==='services'||c==='offerings'){const m=c==='services'?S.svc:S.off;if(data)m[id]=data;else delete m[id];rebuildCatalog()}render()}
+function demoPut(path,data){const [c,id]=path.split('/');if(c==='members'){if(data)S.members[id]=data;else delete S.members[id]}if(c==='tickets'){if(data)S.tickets[id]=data;else delete S.tickets[id]}if(c==='settings'&&id==='main')applySettings(data);if(c==='devices'){if(data)S.devices[id]=data;else delete S.devices[id]}if(c==='articles'){if(data)S.art[id]=data;else delete S.art[id];rebuildKB()}if(c==='kbvotes'){if(data)S.votes[id]=data;else delete S.votes[id]}if(c==='confirmations'){if(data)S.conf[id]=data;else delete S.conf[id]}if(c==='settings'&&id==='recon')S.recon=data;if(c==='services'||c==='offerings'){const m=c==='services'?S.svc:S.off;if(data)m[id]=data;else delete m[id];rebuildCatalog()}render()}
 function fail(e){const c=e&&e.code;if(c==='invalid_argument'){S.writeOk=false;toast(t('noWrite'));render()}else if(c==='quota_exceeded')toast(e.message||t('couldNot'));else toast(t('couldNot'))}
 function applySettings(d){S.settings={brand:{...BRAND_DEFAULT,...((d&&d.brand)||{})},ann:(d&&d.ann)||null};applyBrand()}
 
@@ -674,8 +762,8 @@ function renderTop(){const b=S.settings.brand,r=S.route;
   const mineOpen=mineT().filter(x=>!DONE.has(x.status)||x.status==='Resolved').length;
   const apprN=tickets().filter(canApprove).length;
   const wsN=isAgent()?tickets().filter(x=>canWork(x)&&!DONE.has(x.status)).length:0;
-  const a=(k,l,n)=>`<a href="#${k}" class="${r===k||(k==='home'&&(r==='area'||r==='done'))||(r==='new'&&ITEM[S.arg]&&k===(kindOf(ITEM[S.arg])==='INC'?'incident':'request'))?'on':''}">${l}${n?`<span class="n">${n}</span>`:''}</a>`;
-  let nav=a('home',t('home'))+a('request',t('a_request'))+a('incident',t('a_incident'))+a('devices',t('a_devices'),myPending())+a('mine',t('mine'),mineOpen);
+  const a=(k,l,n)=>`<a href="#${k}" class="${r===k||(k==='kb'&&r==='article')||(k==='home'&&(r==='area'||r==='done'))||(r==='new'&&ITEM[S.arg]&&k===(kindOf(ITEM[S.arg])==='INC'?'incident':'request'))?'on':''}">${l}${n?`<span class="n">${n}</span>`:''}</a>`;
+  let nav=a('home',t('home'))+a('request',t('a_request'))+a('incident',t('a_incident'))+a('devices',t('a_devices'),myPending())+a('kb',t('a_kb'))+a('mine',t('mine'),mineOpen);
   if(apprN||['approver','admin'].includes(role()))nav+=a('approvals',t('approvals'),apprN);
   if(isAdmin())nav+=a('admin',t('admin'));
   $('#top').innerHTML=`<a class="brand" href="#home"><span class="mark">${esc(b.short||'SEA')}</span><span><b>${esc(b.name||'Tawasul')}</b><small>${t('org')} · ${t('portalSub')}</small></span></a>
@@ -704,13 +792,13 @@ function vHome(){const first=(S.meName||'').split(' ')[0];const q=S.filters.home
   </section>
   <section style="display:flex;flex-direction:column;gap:12px"><h2 style="font-size:18px">${t('doTitle')}</h2><div class="acts">${actionTiles()}</div></section>
   <div class="toolbar"><input type="search" id="homeSearch" placeholder="${esc(t('searchPh'))}" value="${esc(S.filters.home)}" aria-label="${esc(t('searchPh'))}"></div>
-  ${q?`<section class="panel"><div class="panel-h"><h2>${t('results')}</h2></div>${matches.length?matches.map(svcRow).join(''):`<div class="empty">${t('noResults')}</div>`}</section>`:
+  ${q?`<section class="panel"><div class="panel-h"><h2>${t('results')}</h2></div>${matches.length?matches.map(svcRow).join(''):`<div class="empty">${t('noResults')}</div>`}</section>${(a=>a.length?`<section class="panel"><div class="panel-h"><h2>${t('articlesL')}</h2></div><div class="panel-b" style="gap:4px">${a.map(artLink).join('')}</div></section>`:'')(KB.filter(k=>artText(k).includes(q)).slice(0,6))}`:
 ''}
   <section class="panel"><div class="panel-h"><h2>${t('openReq')}</h2><a class="btn sm" href="#mine">${t('viewAll')}</a></div>
    ${open.length?open.map(x=>ticketRow(x,1)).join(''):`<div class="empty">${t('noneOpen')}</div>`}</section>`}
 function actionTiles(){const nReq=CATALOG.filter(c=>c.kind!=='INC').length,nInc=CATALOG.filter(c=>c.kind==='INC').length,nDev=myDevices().length,nOpen=mineT().filter(x=>!DONE.has(x.status)||x.status==='Resolved').length;
   const tile=(href,ic,k,count)=>`<a class="act" href="#${href}"><span class="ic">${icon(ic)}</span><b>${t('a_'+k)}</b><p>${t('a_'+k+'D')}</p><small>${count}</small></a>`;
-  return tile('request','req','request',`${areasWith('REQ').length} ${t('n_services')}`)+tile('incident','inc','incident',`${areasWith('INC').length} ${t('n_ways')}`)+tile('devices','dev','devices',`${nDev} ${t('n_devices')}${myPending()?' · '+myPending()+' '+t('rc_toConfirm'):''}`)+tile('mine','track','track',`${nOpen} ${t('n_open')}`)}
+  return tile('request','req','request',`${areasWith('REQ').length} ${t('n_services')}`)+tile('incident','inc','incident',`${areasWith('INC').length} ${t('n_ways')}`)+tile('devices','dev','devices',`${nDev} ${t('n_devices')}${myPending()?' · '+myPending()+' '+t('rc_toConfirm'):''}`)+tile('kb','lib','kb',`${KB.length} ${t('n_articles')}`)+tile('mine','track','track',`${nOpen} ${t('n_open')}`)}
 const kindOf=c=>c.kind==='INC'?'INC':'REQ';
 const areasWith=k=>AREAS.filter(a=>CATALOG.some(c=>c.area===a.id&&kindOf(c)===k));
 function vKind(k){const isInc=k==='INC',route=isInc?'incident':'request',title=t('a_'+route),sub=isInc?t('incSub'):t('reqSub');
@@ -769,6 +857,7 @@ function assistResult(as){const r=as.result;const it=ITEM[r.itemId];
   if(!it)return `<div class="suggest"><p>${t('noMatch')}</p><div class="actions"><button class="btn sm" data-a="askReset">${t('back')}</button></div></div>`;
   return `<div class="suggest"><span class="k">${t('suggested')}</span><b>${esc(L(it))}</b><span class="muted" style="font-size:13.5px">${esc(L(area(it.area)))}${r.reason?' · '+esc(r.reason):''}</span>${as.note?`<small class="muted">${as.note}</small>`:''}
    ${r.alts&&r.alts.length?`<div class="chips">${r.alts.filter(id=>ITEM[id]&&id!==r.itemId).slice(0,3).map(id=>`<a class="chipbtn" href="#new-${id}">${esc(L(ITEM[id]))}</a>`).join('')}</div>`:''}
+   ${(arts=>arts.length?`<div><span class="k">${t('mayHelp')}</span>${arts.map(artLink).join('')}</div>`:'')(kbMatch(as.text,2))}
    <div class="actions"><a class="btn primary" style="background:var(--brand);color:var(--on-brand);border-color:var(--brand)" href="#new-${it.id}">${t('contBtn')}</a><button class="btn" data-a="askReset">${t('otherBtn')}</button></div></div>`}
 function svcRow(c){return `<div class="svc"><div><b>${esc(L(c))}</b><p>${esc(D_(c))}</p><div class="meta">${c.kind==='INC'?'':`<span class="tag">${t('within')} ${slaText(c.sla)}</span>`}${c.approval?`<span class="tag">${t('approval')}</span>`:''}<span class="tag">${esc(L(area(c.area)))}</span></div></div><a class="btn ${c.kind==='INC'?'':'primary'}" href="#new-${c.id}">${c.kind==='INC'?t('report'):t('request')}</a></div>`}
 function vArea(id){const a=area(id),items=CATALOG.filter(c=>c.area===a.id);
@@ -799,7 +888,7 @@ function vForm(id){const it=ITEM[id];if(!it||!CATALOG.includes(it))return vHome(
     <div class="actions"><button class="btn primary" type="submit" ${S.writeOk?'':'disabled'}>${t('submit')}</button><a class="btn ghost" href="#${kr}">${t('cancel')}</a></div></form></section>
    <aside class="panel"><div class="panel-b facts"><div><span>${t('area')}</span>${esc(L(a))}</div>
     <div><span>${t('sla')}</span>${it.kind==='INC'?Object.entries(SLA_INC).map(([p,h])=>`<span style="text-transform:none;letter-spacing:0;font-weight:400;font-size:14px;color:var(--fg)"><span class="prio ${p}">${p}</span> ${slaText(h)}</span>`).join(''):t('within')+' '+slaText(it.sla)}</div>
-    <div><span>${t('whatNext')}</span>${it.approval?t('nextApproval'):t('nextNo')}</div>${it.approval?`<div><span>${t('apprBy')}</span>${approverFor(it.area)?person(approverFor(it.area)):`<em class="muted" style="font-style:normal">${t('apprNone')}</em>`}</div>`:''}</div></aside></div>`}
+    <div><span>${t('whatNext')}</span>${it.approval?t('nextApproval'):t('nextNo')}</div>${(arts=>arts.length?`<div><span>${t('beforeSubmit')}</span>${arts.map(artLink).join('')}</div>`:'')([...KB.filter(k=>k.offering===it.id),...KB.filter(k=>k.offering!==it.id&&k.area===it.area)].slice(0,3))}${it.approval?`<div><span>${t('apprBy')}</span>${approverFor(it.area)?person(approverFor(it.area)):`<em class="muted" style="font-style:normal">${t('apprNone')}</em>`}</div>`:''}</div></aside></div>`}
 function readForm(){document.querySelectorAll('#reqForm [data-f]').forEach(el=>{FORM.v[el.dataset.f]=el.type==='checkbox'?el.checked:el.value.trim()})}
 async function submitForm(){readForm();const it=ITEM[FORM.item],fs=formFields(it);if(FORM.v.onBehalf)fs.push(F('onBehalfName','text','','',{req:1}));
   S.formErr={};fs.forEach(f=>{if(f.req&&f.type!=='check'&&!FORM.v[f.k])S.formErr[f.k]=1});
@@ -867,9 +956,9 @@ function renderLayer(){const keep={};['d-note','rateText','decNote'].forEach(i=>
 function clearNote(){['d-note','decNote','rateText'].forEach(i=>{const e=document.getElementById(i);if(e)e.value=''})}
 
 /* ---------- admin ---------- */
-function vAdmin(){const tab=S.arg||'catalogue';const tabs=[['catalogue',t('adm_cat')],['devices',t('adm_dev')],['people',t('adm_people')],['brand',t('adm_brand')],['ann',t('adm_ann')],['data',t('adm_data')]];
+function vAdmin(){const tab=S.arg||'catalogue';const tabs=[['catalogue',t('adm_cat')],['kb',t('adm_kb')],['devices',t('adm_dev')],['people',t('adm_people')],['brand',t('adm_brand')],['ann',t('adm_ann')],['data',t('adm_data')]];
   return banners()+`<div class="ph"><div><h1>${t('admin')}</h1><p>${t('admSub')}</p></div></div>
-  <nav class="seg" aria-label="Admin">${tabs.map(([k,l])=>`<a href="#admin-${k}" class="${k===tab?'on':''}">${l}</a>`).join('')}</nav>`+({catalogue:aCatalogue,devices:aDevices,people:aPeople,brand:aBrand,ann:aAnn,data:aData}[tab]||aCatalogue)()}
+  <nav class="seg" aria-label="Admin">${tabs.map(([k,l])=>`<a href="#admin-${k}" class="${k===tab?'on':''}">${l}</a>`).join('')}</nav>`+({catalogue:aCatalogue,kb:aKB,devices:aDevices,people:aPeople,brand:aBrand,ann:aAnn,data:aData}[tab]||aCatalogue)()}
 function roleSel(id,v){return `<select id="${id}" aria-label="${t('role')}">${['approver'].map(r=>`<option value="${r}" ${r===v?'selected':''}>${t('r_'+r)}</option>`).join('')}</select>`}
 function areaChecks(prefix,sel){return `<div class="areachecks">${AREAS.map(a=>`<label><input type="checkbox" id="${prefix}-${a.id}" value="${a.id}" ${(sel||[]).includes(a.id)?'checked':''}>${esc(L(a))}</label>`).join('')}</div>`}
 function aPeople(){const ids=Object.keys(S.members);const p=S.pickPerson;
@@ -974,6 +1063,48 @@ async function catAct(a,el){const ed=S.editing,d=ed&&ed.data;
   render();if(['newSvc','editSvc','newOff','editOff','cancelEd'].includes(a))window.scrollTo(0,0)}
 const CAT_ACTS=new Set(['newSvc','editSvc','newOff','editOff','cancelEd','pickIcon','fAdd','fDel','fMove','askDel','keepDel','saveSvc','saveOff','doDel','restoreEd','restore']);
 
+
+
+/* ---------- admin: knowledge base ---------- */
+function aKB(){if(S.kbEdit)return kbEditor(S.kbEdit);const removed=KBALL.filter(a=>a.hidden&&a.builtin);
+  return `<section class="panel"><div class="panel-b" style="flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between"><p class="muted" style="max-width:70ch">${t('kbAdminSub')}</p><button class="btn primary" data-a="kbNew">${t('addArticle')}</button></div></section>`+
+  AREAS.map(a=>{const l=KBALL.filter(k=>k.area===a.id&&!k.hidden);if(!l.length)return '';
+   return `<section class="panel"><div class="panel-h"><div class="svchead"><span class="ic">${icon(areaIcon(a),20)}</span><h2>${esc(L(a))}</h2></div><button class="btn sm primary" data-a="kbNew" data-id="${esc(a.id)}">${t('addArticle')}</button></div>
+    ${l.map(k=>{const v=votesFor(k.id);return `<div class="svc"><div><b>${esc(L(k))}</b><p>${esc(artSum(k))}</p><div class="meta">${k.published===false?`<span class="tag">${t('draftL')}</span>`:''}${v.n?`<span class="tag">${Math.round(v.yes/v.n*100)}% ${t('helpfulPct')} · ${v.n} ${t('votesL')}</span>`:''}${k.offering&&ITEM[k.offering]?`<span class="tag">${esc(L(ITEM[k.offering]))}</span>`:''}${badge(k)}</div></div>
+     <div class="actions"><a class="btn sm ghost" href="#article-${esc(k.id)}">${t('preview')}</a><button class="btn sm" data-a="kbEdit" data-id="${esc(k.id)}">${t('edit')}</button></div></div>`}).join('')}</section>`}).join('')+
+  (removed.length?`<section class="panel"><div class="panel-h"><h2>${t('removedL')}</h2></div>${removed.map(k=>`<div class="svc"><div><b>${esc(L(k))}</b></div><button class="btn sm" data-a="kbRestore" data-id="${esc(k.id)}">${t('restore')}</button></div>`).join('')}</section>`:'')}
+function kbEditor(ed){const d=ed.data;
+  const inp=(k,lab,dir)=>`<div><label class="l" for="kb-${k}">${lab}</label><input type="text" id="kb-${k}" data-kb="${k}" dir="${dir}" value="${esc(d[k]||'')}"></div>`;
+  const ta=(k,lab,dir,h)=>`<div class="full"><label class="l" for="kb-${k}">${lab}</label><textarea id="kb-${k}" data-kb="${k}" dir="${dir}" style="min-height:${h}px">${esc(d[k]||'')}</textarea></div>`;
+  return `<div class="crumb"><a href="#admin-kb" data-a="kbCancel">${t('adm_kb')}</a><span>/</span><span>${ed.isNew?t('addArticle'):esc(L(d))}</span></div>
+  <section class="panel"><div class="panel-h"><h2>${ed.isNew?t('addArticle'):t('edit')+' · '+esc(L(d))}</h2>${!ed.isNew?`<a class="btn sm" href="#article-${esc(d.id)}">${t('preview')}</a>`:''}</div><div class="panel-b"><div class="formgrid">
+   <div><label class="l" for="kb-area">${t('offService')}</label><select id="kb-area" data-kb="area">${AREAS.map(a=>`<option value="${esc(a.id)}" ${a.id===d.area?'selected':''}>${esc(L(a))}</option>`).join('')}</select></div>
+   <div><label class="l" for="kb-offering">${t('artOffering')}</label><select id="kb-offering" data-kb="offering"><option value="">${t('none')}</option>${CATALOG.map(c=>`<option value="${esc(c.id)}" ${c.id===d.offering?'selected':''}>${esc(L(area(c.area)))} · ${esc(L(c))}</option>`).join('')}</select><div class="hint">${t('artOfferingHint')}</div></div>
+   ${inp('en',t('artTitle'),'ltr')}${inp('ar',t('artTitleAr'),'rtl')}${inp('sen',t('artSum'),'ltr')}${inp('sar',t('artSumAr'),'rtl')}
+   <div class="full"><p class="hint" style="margin:0">${t('artBodyHint')}</p></div>
+   ${ta('ben',t('artBody'),'ltr',220)}${ta('bar',t('artBodyAr'),'rtl',220)}
+   ${inp('kw',t('offKw'),'ltr')}<div><label class="l" for="kb-order">${t('orderL')}</label><input type="number" id="kb-order" data-kb="order" value="${esc(d.order??'')}"></div>
+   <div class="full"><label class="chk" for="kb-published"><input type="checkbox" id="kb-published" data-kb="published" ${d.published!==false?'checked':''}><span>${t('published')}</span></label></div></div>
+   ${S.edErr?`<p class="err">${esc(S.edErr)}</p>`:''}<div class="actions"><button class="btn primary" data-a="kbSave">${t('saveL')}</button><button class="btn" data-a="kbCancel">${t('cancel')}</button>
+    ${!ed.isNew&&d.builtin&&d.edited?`<button class="btn ghost" data-a="kbRestoreEd">${t('restore')}</button>`:''}${!ed.isNew?`<button class="btn bad" data-a="kbAskDel">${t('del')}</button>`:''}</div>
+   ${S.confirmDel?`<div class="note"><p>${t('delSure')}</p><div class="actions" style="margin-top:8px"><button class="btn sm bad" data-a="kbDel">${t('yesDel')}</button><button class="btn sm" data-a="kbKeepDel">${t('keep')}</button></div></div>`:''}</div></section>`}
+async function kbAct(a,el){const ed=S.kbEdit,d=ed&&ed.data;
+  switch(a){
+  case 'vote':{const id=el.dataset.id;if(!S.uid)return;await put('kbvotes/'+id+'__'+S.uid,{article:id,by:S.uid,helpful:el.dataset.v==='1',at:now()});break}
+  case 'kbNew':S.kbEdit={isNew:1,data:{area:el.dataset.id||AREAS[0].id,offering:'',en:'',ar:'',sen:'',sar:'',ben:'',bar:'',kw:'',order:maxOrder(KBALL),published:true}};S.edErr='';S.confirmDel=0;window.scrollTo(0,0);break;
+  case 'kbEdit':S.kbEdit={data:clone(KBALL.find(k=>k.id===el.dataset.id))};S.edErr='';S.confirmDel=0;window.scrollTo(0,0);break;
+  case 'kbCancel':S.kbEdit=null;break;
+  case 'kbAskDel':S.confirmDel=1;break;
+  case 'kbKeepDel':S.confirmDel=0;break;
+  case 'kbSave':{if(!String(d.en||'').trim()||!String(d.ar||'').trim()||!(String(d.ben||'').trim()||String(d.bar||'').trim())){S.edErr=t('artReq');break}
+    const id=d.id||rid('a');const doc={id,area:d.area,offering:d.offering||'',en:d.en.trim(),ar:d.ar.trim(),sen:(d.sen||'').trim(),sar:(d.sar||'').trim(),ben:(d.ben||'').trim(),bar:(d.bar||'').trim(),kw:(d.kw||'').trim(),order:+d.order||0,published:d.published!==false,updatedAt:now(),updatedBy:S.uid};
+    if(await put('articles/'+id,doc)){S.kbEdit=null;S.edErr='';toast(t('saved'))}break}
+  case 'kbDel':{const ok=d.builtin?await put('articles/'+d.id,{id:d.id,hidden:true}):await del('articles/'+d.id);if(ok){S.kbEdit=null;S.confirmDel=0;toast(t('saved'))}break}
+  case 'kbRestoreEd':if(await del('articles/'+d.id)){S.kbEdit=null;toast(t('saved'))}break;
+  case 'kbRestore':if(await del('articles/'+el.dataset.id))toast(t('saved'));break;
+  }
+  render()}
+const KB_ACTS=new Set(['vote','kbNew','kbEdit','kbCancel','kbAskDel','kbKeepDel','kbSave','kbDel','kbRestoreEd','kbRestore']);
 
 /* ---------- admin: device check ---------- */
 function reconAdmin(){const c=S.recon;
@@ -1147,13 +1278,13 @@ async function act(a,el){const tk=S.drawer&&S.tickets[S.drawer]?clone(S.tickets[
 
 /* ---------- routing & render ---------- */
 function parseHash(){const h=(location.hash||'').slice(1);let r='home',arg='';
-  if(/^area-[a-z0-9-]+$/.test(h)){r='area';arg=h.slice(5)}else if(/^(request|incident)(-[a-z0-9-]+)?$/.test(h)){r=h.startsWith('request')?'request':'incident';arg=h.replace(/^(request|incident)-?/,'')}else if(/^new-[a-z0-9-]+$/.test(h)){r='new';arg=h.slice(4)}else if(/^done-[A-Z0-9-]+$/.test(h)){r='done';arg=h.slice(5)}
+  if(/^area-[a-z0-9-]+$/.test(h)){r='area';arg=h.slice(5)}else if(/^kb(-[a-z0-9-]+)?$/.test(h)){r='kb';arg=h.slice(3)}else if(/^article-[a-z0-9-]+$/.test(h)){r='article';arg=h.slice(8)}else if(/^(request|incident)(-[a-z0-9-]+)?$/.test(h)){r=h.startsWith('request')?'request':'incident';arg=h.replace(/^(request|incident)-?/,'')}else if(/^new-[a-z0-9-]+$/.test(h)){r='new';arg=h.slice(4)}else if(/^done-[A-Z0-9-]+$/.test(h)){r='done';arg=h.slice(5)}
   else if(/^admin(-[a-z]+)?$/.test(h)){r='admin';arg=h.slice(6)}else if(['home','mine','approvals','devices'].includes(h))r=h;if(r==='admin'&&!isAdmin())r='home';
-  if(r!==S.route){S.filters.kq=''}if(r!==S.route||arg!==S.arg){S.formErr={};S.editing=null;S.devEdit=null;S.confirmDel=0;S.edErr='';S.confEdit=null;S.unlisted=null;S.confirmClose=0}S.route=r;S.arg=arg}
+  if(r!==S.route){S.filters.kq=''}if(r!==S.route||arg!==S.arg){S.formErr={};S.editing=null;S.devEdit=null;S.confirmDel=0;S.edErr='';S.confEdit=null;S.unlisted=null;S.confirmClose=0;S.kbEdit=null}S.route=r;S.arg=arg}
 function applyLang(){const r=document.documentElement;r.lang=S.lang;r.dir=S.lang==='ar'?'rtl':'ltr'}
 function render(){applyLang();renderTop();if(!S.ready)return;
   const keepFocus=document.activeElement&&document.activeElement.id,selS=document.activeElement&&document.activeElement.selectionStart;
-  const v={home:vHome,area:()=>vArea(S.arg),new:()=>vForm(S.arg),done:()=>vDone(S.arg),mine:vMine,approvals:vApprovals,admin:vAdmin,request:()=>vKind('REQ'),incident:()=>vKind('INC'),devices:vDevices}[S.route]||vHome;
+  const v={home:vHome,area:()=>vArea(S.arg),new:()=>vForm(S.arg),done:()=>vDone(S.arg),mine:vMine,approvals:vApprovals,admin:vAdmin,request:()=>vKind('REQ'),incident:()=>vKind('INC'),devices:vDevices,kb:vKB,article:()=>vArticle(S.arg)}[S.route]||vHome;
   $('#main').innerHTML=v();
   if(keepFocus&&(['homeSearch','wsQ','peopleQ','askText','kindQ'].includes(keepFocus)||/^(cn|ul)-/.test(keepFocus))){const el=document.getElementById(keepFocus);if(el){el.focus();try{el.setSelectionRange(selS,selS)}catch(e){}}}
   ensureNames()}
@@ -1161,6 +1292,7 @@ function render(){applyLang();renderTop();if(!S.ready)return;
 document.addEventListener('click',e=>{const el=e.target.closest('[data-a],[data-open]');if(!el)return;
   if(el.dataset.open){e.preventDefault();openDrawer(el.dataset.open);return}
   if(S.devEdit&&['askDel','keepDel'].includes(el.dataset.a)){e.preventDefault();S.confirmDel=el.dataset.a==='askDel'?1:0;render();return}
+  if(KB_ACTS.has(el.dataset.a)){e.preventDefault();kbAct(el.dataset.a,el);return}
   if(RECON_ACTS.has(el.dataset.a)){e.preventDefault();reconAct(el.dataset.a,el);return}
   if(DEV_ACTS.has(el.dataset.a)){e.preventDefault();devAct(el.dataset.a,el);return}
   if(CAT_ACTS.has(el.dataset.a)){e.preventDefault();catAct(el.dataset.a,el);return}
@@ -1180,7 +1312,7 @@ document.addEventListener('input',e=>{const el=e.target;
   if(el.id==='peopleQ')peopleSearch(el.value);
   if(el.id==='askText')S.askDraft=el.value;
   edBind(el)});
-function edBind(el){if(el.dataset.cn&&S.confEdit){S.confEdit.note=el.value;return false}if(el.dataset.ul&&S.unlisted){S.unlisted[el.dataset.ul]=el.value;return false}if(S.devEdit&&el.dataset.dv){S.devEdit.data[el.dataset.dv]=el.value;return false}if(!S.editing)return false;const d=S.editing.data;
+function edBind(el){if(el.dataset.kb&&S.kbEdit){S.kbEdit.data[el.dataset.kb]=el.type==='checkbox'?el.checked:el.value;return false}if(el.dataset.cn&&S.confEdit){S.confEdit.note=el.value;return false}if(el.dataset.ul&&S.unlisted){S.unlisted[el.dataset.ul]=el.value;return false}if(S.devEdit&&el.dataset.dv){S.devEdit.data[el.dataset.dv]=el.value;return false}if(!S.editing)return false;const d=S.editing.data;
   if(el.dataset.ed){d[el.dataset.ed]=el.type==='checkbox'?el.checked:el.value;return el.dataset.ed==='kind'}
   if(el.dataset.fi!=null&&el.dataset.fp){const f=d.fields[+el.dataset.fi];if(f)f[el.dataset.fp]=el.type==='checkbox'?el.checked:el.value;return el.dataset.fp==='type'}return false}
 document.addEventListener('focusin',e=>{if(e.target.id==='peopleQ')peopleSearch(e.target.value)});
@@ -1198,6 +1330,7 @@ function startDemo(){S.demo=true;S.uid='demo-me';S.meName=DEMO_NAMES['demo-me'];
   examples('demo-me','demo-omar').forEach(x=>S.tickets[x.id]=x);
   const ap=S.tickets['REQ-EX2188'];ap.approver='demo-me';exampleDevices('demo-me').forEach(d=>S.devices[d.tag]=d);
   [{tag:'SEA-LT-0118',type:'Laptop',model:'HP EliteBook 840 G9',serial:'5CG2318KP',location:'Main Building',status:'In use',assignedTo:'demo-sara',sample:true},{tag:'SEA-PJ-0021',type:'Projector',model:'Epson EB-L630U',serial:'X5JF210443',location:'Training Block A',status:'In use',assignedTo:'demo-fatima',sample:true},{tag:'SEA-LT-0151',type:'Laptop',model:'Dell Latitude 5440',serial:'8HKQ2X3',location:'Training Block B',status:'In use',assignedTo:'demo-ahmed',sample:true}].forEach(d=>S.devices[d.tag]=d);
+  S.votes={'kb-wifi__demo-sara':{article:'kb-wifi',by:'demo-sara',helpful:true,at:now()-5*H},'kb-wifi__demo-omar':{article:'kb-wifi',by:'demo-omar',helpful:true,at:now()-9*H},'kb-wifi__demo-ahmed':{article:'kb-wifi',by:'demo-ahmed',helpful:false,at:now()-30*H},'kb-password__demo-fatima':{article:'kb-password',by:'demo-fatima',helpful:true,at:now()-3*H}};
   S.recon={id:'cdemo',name:'Device check October 2026',due:new Date(now()+10*D).toISOString().slice(0,10),active:true,startedAt:now()-2*D};
   S.conf={'cdemo__SEA-MN-0388':{campaign:'cdemo',key:'SEA-MN-0388',tag:'SEA-MN-0388',by:'demo-me',answer:'have',note:'',at:now()-30*H},
    'cdemo__SEA-LT-0118':{campaign:'cdemo',key:'SEA-LT-0118',tag:'SEA-LT-0118',by:'demo-sara',answer:'missing',note:'Returned to IT in September when I received the new laptop.',at:now()-20*H},
@@ -1213,10 +1346,12 @@ async function boot(){applyLang();applySettings(null);renderTop();
   if(user){const me=await user.me();S.uid=me.id;S.meName=me.name||'';S.meAvatar=me.avatarUrl||'';S.owner=me.isOwner;S.editor=me.canEdit;
     const cw=await user.can('data.write');if(cw===false)S.writeOk=false}
   if(!S.uid){startDemo();return}
-  let got={t:0,m:0,s:0,c:0,o:0,d:0,r:0,f:0};const go=()=>{const was=S.ready;if(got.t&&got.m&&got.s&&got.c&&got.o&&got.d&&got.r&&got.f&&!S.ready){S.ready=true;parseHash()}
-    if(was&&(S.route==='new'||(S.route==='admin'&&(['brand','ann'].includes(S.arg)||S.editing||S.devEdit)))){renderTop();renderLayer();return}render();renderLayer()};
+  let got={t:0,m:0,s:0,c:0,o:0,d:0,r:0,f:0,a:0,v:0};const go=()=>{const was=S.ready;if(got.t&&got.m&&got.s&&got.c&&got.o&&got.d&&got.r&&got.f&&got.a&&got.v&&!S.ready){S.ready=true;parseHash()}
+    if(was&&(S.route==='new'||(S.route==='admin'&&(['brand','ann'].includes(S.arg)||S.editing||S.devEdit||S.kbEdit)))){renderTop();renderLayer();return}render();renderLayer()};
   db.collection('tickets').onSnapshot(snap=>{const o={};snap.docs.forEach(d=>o[d.id]=d.data());S.tickets=o;got.t=1;go()},()=>{got.t=1;go()});
   db.collection('members').onSnapshot(snap=>{const o={};snap.docs.forEach(d=>o[d.id]=d.data());S.members=o;got.m=1;go()},()=>{got.m=1;go()});
+  db.collection('articles').onSnapshot(snap=>{const o={};snap.docs.forEach(d=>o[d.id]=d.data());S.art=o;rebuildKB();got.a=1;go()},()=>{got.a=1;go()});
+  db.collection('kbvotes').onSnapshot(snap=>{const o={};snap.docs.forEach(d=>o[d.id]=d.data());S.votes=o;got.v=1;go()},()=>{got.v=1;go()});
   db.doc('settings/recon').onSnapshot(d=>{S.recon=d.exists?d.data():null;got.r=1;go()},()=>{got.r=1;go()});
   db.collection('confirmations').onSnapshot(snap=>{const o={};snap.docs.forEach(d=>o[d.id]=d.data());S.conf=o;got.f=1;go()},()=>{got.f=1;go()});
   db.collection('devices').onSnapshot(snap=>{const o={};snap.docs.forEach(d=>o[d.id]=d.data());S.devices=o;got.d=1;go()},()=>{got.d=1;go()});
